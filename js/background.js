@@ -55,9 +55,9 @@
             this.vy = (dotConfig.direction.y + (Math.random() - 0.5) * 0.5) * speed;
         }
     
-        update() {
-            this.x += this.vx;
-            this.y += this.vy;
+        update(speedFactor = 1.0) {
+            this.x += this.vx * speedFactor;
+            this.y += this.vy * speedFactor;
     
             if (this.x < -100 || this.y > height + 100) {
                 this.init(false); 
@@ -109,7 +109,20 @@
         dotConfig.mouseDistance = dotConfig.connectionDistance * 1.5;
     }
     
-    function animate() {
+    let lastTime = 0;
+    const targetFPS = 120;
+    const targetFrameTime = 1000 / targetFPS;
+
+    function animate(timestamp) {
+        if (!lastTime) lastTime = timestamp;
+        const deltaTime = timestamp - lastTime;
+        lastTime = timestamp;
+        
+        // Normalize speed to target FPS
+        // If running at 60fps (dt=16.6ms), factor is ~2.0 (needs 2x movement to match 120fps speed)
+        // If running at 120fps (dt=8.3ms), factor is 1.0
+        const speedFactor = deltaTime / targetFrameTime;
+
         ctx.clearRect(0, 0, width, height);
         
         const isMobile = window.innerWidth < 768;
@@ -140,25 +153,17 @@
                 const dist = Math.sqrt(dx * dx + dy * dy);
     
                 if (dist < dotConfig.connectionDistance) {
-                    // "make the lines more noticeable (brighter, not thicker)"
-                    // Previous max opacity was 0.5. Let's bump to 0.8 or 1.0.
-                    // Also start fading later?
-                    
                     const opacity = (1 - (dist / dotConfig.connectionDistance));
-                    // Using a higher multiplier or power to keep them bright longer?
-                    // opacity * 0.8
-                    
                     ctx.beginPath();
                     ctx.moveTo(dot.x, dot.y);
                     ctx.lineTo(other.x, other.y);
-                    // Use a brighter base alpha.
                     ctx.strokeStyle = dotConfig.colors.line + (opacity * 0.8) + ')'; 
                     ctx.lineWidth = 0.5; // Keep thin
                     ctx.stroke();
                 }
             }
     
-            dot.update();
+            dot.update(speedFactor);
             dot.draw();
         }
     
@@ -181,5 +186,10 @@
     });
     
     init();
-    animate();
+    
+    // Start animation loop
+    requestAnimationFrame((timestamp) => {
+        lastTime = timestamp;
+        animate(timestamp);
+    });
 })();
