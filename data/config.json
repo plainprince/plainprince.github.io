@@ -1,0 +1,56 @@
+{
+    "username": "plainprince",
+    "name": "plainprince",
+    "pfpUrl": "https://github.com/plainprince.png",
+    "githubApiUrl": "https://api.github.com/users/plainprince/repos",
+    "birthDate": "05.05.2013",
+    "aboutMe": [
+        "Hey! I'm $name, a $age-year-old fullstack developer passionate about building creative solutions across the entire tech stack. From web applications to embedded systems, I love diving into diverse technologies and bringing ideas to life.",
+        "My work spans JavaScript and TypeScript for modern web development, Rust for systems programming, and C++ for performance-critical applications. I'm particularly interested in ESP32 and Arduino microcontrollers, where I combine software engineering with hardware to create interactive projects.",
+        "Beyond web and embedded development, I explore graphics programming (path tracing, rendering), game development, and developer tools. Whether it's building a Photoshop-like image editor, creating a Minecraft launcher, or developing Blender addons, I enjoy tackling challenging problems and learning new technologies along the way.",
+        "You can find my projects on GitHub at github.com/$username, where I share everything from fullstack web apps to microcontroller projects. Always open to collaboration and new ideas!"
+    ],
+    "skills": [
+        {
+            "name": "Rust",
+            "desc": "Systems programming, memory safety without garbage collection, zero-cost abstractions, and WebAssembly.",
+            "color": "#dea584"
+        },
+        {
+            "name": "C++",
+            "desc": "High-performance applications, system software, and embedded systems.",
+            "color": "#f34b7d"
+        },
+        {
+            "name": "JavaScript",
+            "desc": "Advanced modern JavaScript (ES6+), async/await, closures, prototypes, and DOM manipulation.",
+            "color": "#f7df1e"
+        },
+        {
+            "name": "TypeScript",
+            "desc": "Static typing, interfaces, generics, and strict mode configurations for robust codebases.",
+            "color": "#3178c6"
+        },
+        {
+            "name": "Microcontrollers",
+            "desc": "Embedded C/C++, RTOS, hardware interfacing (I2C, SPI, UART), and circuit design basics.",
+            "color": "#61dafb"
+        },
+        {
+            "name": "Node.js",
+            "desc": "Server-side runtime, Express.js API development, file system operations, and streams.",
+            "color": "#339933"
+        },
+        {
+            "name": "SQL",
+            "desc": "Relational database design, complex queries, joins, transactions, and PostgreSQL/MySQL optimization.",
+            "color": "#00758f"
+        },
+        {
+            "name": "Git",
+            "desc": "Version control workflows, branching strategies, rebasing, and CI/CD integration.",
+            "color": "#f05032"
+        }
+    ]
+}
+
