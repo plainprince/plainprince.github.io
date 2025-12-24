@@ -125,6 +125,7 @@
     flex: 1;
     padding: var(--spacing-md);
     font-weight: 600;
+    font-size: 1rem;
     color: var(--text-secondary);
     transition: all var(--transition-fast);
     border-bottom: 0.125rem solid transparent;
