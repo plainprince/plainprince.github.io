@@ -86,8 +86,17 @@
     function resize() {
         width = window.innerWidth;
         height = window.innerHeight;
-        canvas.width = width;
-        canvas.height = height;
+        
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        
+        // Normalize coordinate system to use css pixels
+        ctx.scale(dpr, dpr);
+        
+        // CSS size needs to match window size
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
 
         // Dynamic connection distance based on screen size
         // Mobile (<600px): shorter distance to avoid clutter? Or longer to ensure connections?
