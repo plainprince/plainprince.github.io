@@ -5,7 +5,7 @@
     "githubApiUrl": "https://api.github.com/users/plainprince/repos",
     "birthDate": "05.05.2013",
     "aboutMe": [
-        "Hey! I'm $name, a $age-year-old fullstack developer passionate about building creative solutions across the entire tech stack. From web applications to embedded systems, I love diving into diverse technologies and bringing ideas to life.",
+        "Hi! I'm $name, a $age-year-old fullstack developer passionate about building creative solutions across the entire tech stack. From web applications to embedded systems, I love diving into diverse technologies and bringing ideas to life.",
         "My work spans JavaScript and TypeScript for modern web development, Rust for systems programming, and C++ for performance-critical applications. I'm particularly interested in ESP32 and Arduino microcontrollers, where I combine software engineering with hardware to create interactive projects.",
         "Beyond web and embedded development, I explore graphics programming (path tracing, rendering), game development, and developer tools. Whether it's building a simple image editor, creating a Minecraft launcher, or developing Blender addons, I enjoy tackling challenging problems and learning new technologies along the way.",
         "You can find my projects on GitHub at github.com/$username, where I share everything from fullstack web apps to microcontroller projects. Always open to collaboration and new ideas!"
