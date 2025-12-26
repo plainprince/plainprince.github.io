@@ -1,5 +1,3 @@
-// GitHub Data Fetching and Rendering
-
 let allRepos = [];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -38,17 +36,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function fetchRepos() {
     try {
+        const cached = localStorage.getItem(`repos_${config.username}`);
+        const now = Date.now();
+        
+        if (cached) {
+            const { timestamp, data } = JSON.parse(cached);
+            if (now - timestamp < 3600000) {
+                allRepos = data;
+                renderProjects('my-projects');
+                return;
+            }
+        }
+
         const apiUrl = `https://api.github.com/users/${config.username}/repos`;
-        const response = await fetch(apiUrl + '?per_page=100'); // Fetch up to 100 repos
+        const response = await fetch(apiUrl + '?per_page=100');
         if (!response.ok) throw new Error('Failed to fetch repos');
         allRepos = await response.json();
         
-        // Initial Render: Projects (Starred, Non-Fork)
+        localStorage.setItem(`repos_${config.username}`, JSON.stringify({
+            timestamp: now,
+            data: allRepos
+        }));
+        
         renderProjects('my-projects');
     } catch (error) {
         console.error(error);
+        
+        const cached = localStorage.getItem(`repos_${config.username}`);
+        if (cached) {
+            allRepos = JSON.parse(cached).data;
+            renderProjects('my-projects');
+            return;
+        }
+
         const grid = document.getElementById('projects-grid');
-        grid.innerHTML = '<p style="color: var(--accent-orange)">Failed to load projects.</p>';
+        grid.innerHTML = '<p style="color: var(--accent-orange)">Failed to load projects. (Offline mode active)</p>';
     }
 }
 
@@ -60,15 +82,12 @@ function renderProjects(filterType) {
 
     switch (filterType) {
         case 'my-projects':
-            // Starred AND Not Fork
             filteredRepos = allRepos.filter(repo => repo.stargazers_count > 0 && !repo.fork);
             break;
         case 'forks':
-            // All Forks
             filteredRepos = allRepos.filter(repo => repo.fork);
             break;
         case 'trash':
-            // Not Starred AND Not Fork (The "trash" definition from user)
             filteredRepos = allRepos.filter(repo => !repo.fork && repo.stargazers_count === 0);
             break;
         default:
@@ -88,7 +107,6 @@ function renderProjects(filterType) {
         card.target = "_blank";
         card.className = 'card project-card';
         
-        // Setup internal HTML
         card.innerHTML = `
             <div class="card-content">
                 <h3 class="card-title">${repo.name}</h3>
@@ -106,4 +124,3 @@ function renderProjects(filterType) {
 
     grid.appendChild(fragment);
 }
-

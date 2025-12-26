@@ -8,14 +8,12 @@ async function loadConfig() {
         
         const replacements = {};
         
-        // name is for display, username is for API/URLs
         if (config.name) {
             replacements.name = config.name;
         }
         
         if (config.username) {
             replacements.username = config.username;
-            // Fallback: if name not set, use username for display
             if (!replacements.name) {
                 replacements.name = config.username;
             }
@@ -56,4 +54,3 @@ function calculateAge(birthDateStr) {
 }
 
 loadConfig();
-

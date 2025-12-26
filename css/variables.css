@@ -1,11 +1,10 @@
 :root {
-    /* Night Owl Palette */
-    --bg-color: #000000; /* Void black */
-    --bg-card: #011627; /* Night Owl Dark Blue */
+    --bg-color: #000000;
+    --bg-card: #011627;
     --bg-darker: #000c1d;
     
-    --text-primary: #d6deeb; /* Gray-ish white */
-    --text-secondary: #8b9eb5; /* Muted Blue/Gray */
+    --text-primary: #d6deeb;
+    --text-secondary: #8b9eb5;
     
     --accent-cyan: #7fdbca;
     --accent-blue: #82AAFF;
@@ -16,20 +15,15 @@
     
     --border-color: #5f7e97;
     
-    /* Font Families */
     --font-mono: 'Courier New', Courier, monospace;
-    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-    /* Spacing */
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
     --spacing-md: 1.5rem;
     --spacing-lg: 2rem;
     --spacing-xl: 3rem;
 
-    /* Transitions */
     --transition-fast: 0.2s ease;
     --transition-medium: 0.3s ease;
 }
-
-

@@ -1,5 +1,3 @@
-// Canvas background animation
-// We wrap it in an IIFE to avoid global scope pollution (like 'config') if other scripts use it.
 (() => {
     const canvas = document.getElementById('bg-canvas');
     if (!canvas) return;
@@ -9,20 +7,18 @@
     let width, height;
     let dots = [];
     
-    // Configuration
-    // Dynamic values will be set in resize()
     const dotConfig = {
         dotCount: 100, 
-        connectionDistance: 150, // will be updated
+        connectionDistance: 150,
         mouseDistance: 200,
-        dotBaseRadius: 1.0, // Smaller dots (was 1.5)
-        dotVariance: 0.3,   // Reduced variance
+        dotBaseRadius: 1.0,
+        dotVariance: 0.3,
         baseSpeed: 0.3,
         speedVariance: 0.2,
         direction: { x: -0.5, y: 0.5 }, 
         colors: {
-            dot: 'rgba(255, 255, 255, 0.4)', // Darker/Less visible dots (was 0.8)
-            line: 'rgba(255, 255, 255, ',   // We append alpha later
+            dot: 'rgba(255, 255, 255, 0.4)',
+            line: 'rgba(255, 255, 255, ',
             mouseLine: 'rgba(127, 219, 202, ' 
         }
     };
@@ -91,30 +87,15 @@
         canvas.width = width * dpr;
         canvas.height = height * dpr;
         
-        // Normalize coordinate system to use css pixels
         ctx.scale(dpr, dpr);
         
-        // CSS size needs to match window size
         canvas.style.width = width + 'px';
         canvas.style.height = height + 'px';
 
-        // Dynamic connection distance based on screen size
-        // Mobile (<600px): shorter distance to avoid clutter? Or longer to ensure connections?
-        // User said: "on mobile they seem long but on desktop relaly short"
-        // Wait, "on mobile they seem long" -> Mobile needs SHORTER distance?
-        // "on desktop relaly short" -> Desktop needs LONGER distance?
-        // Yes.
-        
-        // Base calc: diagonal or width
         const diagonal = Math.sqrt(width*width + height*height);
         
-        // Desktop (1920x1080) ~ 2200 diag. 
-        // Mobile (375x800) ~ 900 diag.
-        
-        // Let's try 10% of diagonal, clamped.
         dotConfig.connectionDistance = Math.min(Math.max(diagonal * 0.1, 100), 250);
         
-        // Adjust mouse distance too
         dotConfig.mouseDistance = dotConfig.connectionDistance * 1.5;
     }
     
@@ -127,9 +108,6 @@
         const deltaTime = timestamp - lastTime;
         lastTime = timestamp;
         
-        // Normalize speed to target FPS
-        // If running at 60fps (dt=16.6ms), factor is ~2.0 (needs 2x movement to match 120fps speed)
-        // If running at 120fps (dt=8.3ms), factor is 1.0
         const speedFactor = deltaTime / targetFrameTime;
 
         ctx.clearRect(0, 0, width, height);
@@ -167,7 +145,7 @@
                     ctx.moveTo(dot.x, dot.y);
                     ctx.lineTo(other.x, other.y);
                     ctx.strokeStyle = dotConfig.colors.line + (opacity * 0.8) + ')'; 
-                    ctx.lineWidth = 0.5; // Keep thin
+                    ctx.lineWidth = 0.5;
                     ctx.stroke();
                 }
             }
@@ -196,7 +174,6 @@
     
     init();
     
-    // Start animation loop
     requestAnimationFrame((timestamp) => {
         lastTime = timestamp;
         animate(timestamp);

@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     const skillsGrid = document.getElementById('skills-grid');
     const modal = document.getElementById('skill-modal');
@@ -52,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             skillsGrid.appendChild(fragment);
             
-            // Recalculate line clamps after rendering
             updateLineClamps();
     }
     
@@ -67,25 +65,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100);
     }
 
-    // Dynamic Line Clamp Calculation
     function updateLineClamps() {
         const cards = skillsGrid.querySelectorAll('.skill-card');
-        const lineHeight = 1.35 * 16; // 1.35rem * 16px base estimate (or measurement)
-        const paddingVertical = 3 * 16; // 1.5rem top + 1.5rem bottom
-        const titleHeightEst = 3 * 16; // Approx title height + margin
+        const lineHeight = 1.35 * 16;
+        const paddingVertical = 3 * 16;
+        const titleHeightEst = 3 * 16;
         const extraDeduction = paddingVertical + titleHeightEst;
 
         cards.forEach(card => {
             const width = card.offsetWidth;
-            if (width === 0) return; // Not visible yet
+            if (width === 0) return;
 
-            // Target 16:9 height
             const targetHeight = (width * 9) / 16;
             
-            // Available height for text
             const availableTextHeight = targetHeight - extraDeduction;
             
-            // Calculate lines (min 1)
             const lines = Math.max(1, Math.floor(availableTextHeight / lineHeight));
             
             card.style.setProperty('--line-clamp', lines);
