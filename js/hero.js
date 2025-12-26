@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function setupHero() {
         if (config.username) {
-            usernameDisplay.textContent = config.username;
-            profileImg.src = config.pfpUrl;
+            usernameDisplay.textContent = config.name || config.username;
+            profileImg.src = `https://github.com/${config.username}.png`;
         }
     }
     

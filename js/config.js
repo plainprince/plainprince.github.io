@@ -8,13 +8,14 @@ async function loadConfig() {
         
         const replacements = {};
         
+        // name is for display, username is for API/URLs
         if (config.name) {
             replacements.name = config.name;
-            replacements.username = config.name;
         }
         
         if (config.username) {
             replacements.username = config.username;
+            // Fallback: if name not set, use username for display
             if (!replacements.name) {
                 replacements.name = config.username;
             }
@@ -30,7 +31,7 @@ async function loadConfig() {
             config.aboutMe = config.aboutMe.map(text => {
                 let processed = text;
                 for (const [key, value] of Object.entries(replacements)) {
-                    const regex = new RegExp(`\\$${key}`, 'gi');
+                    const regex = new RegExp('\\$' + key, 'gi');
                     processed = processed.replace(regex, value);
                 }
                 return processed;
@@ -38,14 +39,7 @@ async function loadConfig() {
         }
     } catch (error) {
         console.error('Error loading config:', error);
-        config = {
-            username: 'plainprince',
-            name: 'plainprince',
-            pfpUrl: 'https://github.com/plainprince.png',
-            githubApiUrl: 'https://api.github.com/users/plainprince/repos',
-            aboutMe: ['Error loading configuration.'],
-            skills: []
-        };
+        throw error;
     }
 }
 

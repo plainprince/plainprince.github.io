@@ -1,8 +1,6 @@
 {
     "username": "plainprince",
     "name": "plainprince",
-    "pfpUrl": "https://github.com/plainprince.png",
-    "githubApiUrl": "https://api.github.com/users/plainprince/repos",
     "birthDate": "05.05.2013",
     "aboutMe": [
         "Hi! I'm $name, a $age-year-old fullstack developer passionate about building creative solutions across the entire tech stack. From web applications to embedded systems, I love diving into diverse technologies and bringing ideas to life.",
@@ -53,4 +51,3 @@
         }
     ]
 }
-

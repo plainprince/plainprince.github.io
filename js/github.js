@@ -20,11 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    if (config.githubApiUrl) {
+    if (config.username) {
         initGithub();
     } else {
         const checkConfig = setInterval(() => {
-            if (config.githubApiUrl) {
+            if (config.username) {
                 initGithub();
                 clearInterval(checkConfig);
             }
@@ -38,7 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function fetchRepos() {
     try {
-        const response = await fetch(config.githubApiUrl + '?per_page=100'); // Fetch up to 100 repos
+        const apiUrl = `https://api.github.com/users/${config.username}/repos`;
+        const response = await fetch(apiUrl + '?per_page=100'); // Fetch up to 100 repos
         if (!response.ok) throw new Error('Failed to fetch repos');
         allRepos = await response.json();
         
