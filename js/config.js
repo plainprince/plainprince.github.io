@@ -35,6 +35,17 @@ async function loadConfig() {
                 return processed;
             });
         }
+        
+        if (config.pageTitle) {
+            let title = config.pageTitle;
+            for (const [key, value] of Object.entries(replacements)) {
+                const regex = new RegExp('\\$' + key, 'gi');
+                title = title.replace(regex, value);
+            }
+            document.title = title;
+        } else {
+            document.title = config.name || config.username || 'Portfolio';
+        }
     } catch (error) {
         console.error('Error loading config:', error);
         throw error;

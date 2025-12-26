@@ -2,6 +2,7 @@
     "username": "plainprince",
     "name": "plainprince",
     "birthDate": "05.05.2013",
+    "pageTitle": "Portfolio of $name",
     "aboutMe": [
         "Hi! I'm $name, a $age-year-old fullstack developer passionate about building creative solutions across the entire tech stack. From web applications to embedded systems, I love diving into diverse technologies and bringing ideas to life.",
         "My work spans JavaScript and TypeScript for modern web development, Rust for systems programming, and C++ for performance-critical applications. I'm particularly interested in ESP32 and Arduino microcontrollers, where I combine software engineering with hardware to create interactive projects.",
