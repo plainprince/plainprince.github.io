@@ -107,7 +107,7 @@
     padding: 0.3125rem 0.9375rem;
     position: relative;
     z-index: 5;
-    background: rgba(0, 0, 0, 0.8);
+    background: transparent;
     border-radius: 0.5rem;
     backdrop-filter: blur(0.25rem);
 }

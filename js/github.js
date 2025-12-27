@@ -3,19 +3,6 @@ let allRepos = [];
 document.addEventListener('DOMContentLoaded', () => {
     function initGithub() {
         fetchRepos();
-        
-        const projectsGrid = document.getElementById('projects-grid');
-        projectsGrid.addEventListener('mousemove', (e) => {
-            const cards = document.querySelectorAll('.project-card');
-            for (const card of cards) {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
-            }
-        });
     }
     
     if (config.username) {
@@ -76,6 +63,7 @@ async function fetchRepos() {
 
 function renderProjects(filterType) {
     const grid = document.getElementById('projects-grid');
+    if (!grid) return;
     grid.innerHTML = '';
 
     let filteredRepos = [];
@@ -123,4 +111,20 @@ function renderProjects(filterType) {
     });
 
     grid.appendChild(fragment);
+    
+    // Attach mousemove listener after cards are rendered (only once)
+    if (!window.__projectsMouseMoveAttached) {
+        grid.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.project-card');
+            for (const card of cards) {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            }
+        });
+        window.__projectsMouseMoveAttached = true;
+    }
 }

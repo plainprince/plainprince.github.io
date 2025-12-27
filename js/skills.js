@@ -5,18 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalBody = document.getElementById('modal-body');
     const closeModal = document.querySelector('.close-modal');
 
-    skillsGrid.addEventListener('mousemove', (e) => {
-        const cards = skillsGrid.querySelectorAll('.skill-card');
-        for (const card of cards) {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
-        }
-    });
-
     function renderSkills() {
         if (!config.skills || config.skills.length === 0) {
             console.error('No skills data available');
@@ -52,6 +40,22 @@ document.addEventListener('DOMContentLoaded', () => {
             skillsGrid.appendChild(fragment);
             
             updateLineClamps();
+            
+            // Attach mousemove listener after cards are rendered (only once)
+            if (!window.__skillsMouseMoveAttached && skillsGrid) {
+                skillsGrid.addEventListener('mousemove', (e) => {
+                    const cards = skillsGrid.querySelectorAll('.skill-card');
+                    for (const card of cards) {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+
+                        card.style.setProperty('--mouse-x', `${x}px`);
+                        card.style.setProperty('--mouse-y', `${y}px`);
+                    }
+                });
+                window.__skillsMouseMoveAttached = true;
+            }
     }
     
     if (config.skills && config.skills.length > 0) {
@@ -89,18 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update clamps on resize
     window.addEventListener('resize', () => {
         requestAnimationFrame(updateLineClamps);
-    });
-
-    skillsGrid.addEventListener('mousemove', (e) => {
-        const cards = skillsGrid.querySelectorAll('.skill-card');
-        for (const card of cards) {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
-        }
     });
 
     function openModal(skill) {
